@@ -17,4 +17,4 @@ Imports:
     parallel
 License: GPL-2
 LazyData: true
-RoxygenNote: 5.0.1
+RoxygenNote: 7.1.0

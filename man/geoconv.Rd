@@ -5,7 +5,7 @@
 \title{Convert geocode
 Take in geocode from the other source to baidu's geocode}
 \usage{
-geoconv(geocode, from = 3, to = 5)
+geoconv(geocode, from = 3, to = 5, map_ak = "")
 }
 \arguments{
 \item{from}{takes intergers from 1 to 8. See more in details.}
@@ -21,4 +21,3 @@ Take in geocode from the other source to baidu's geocode
 \details{
 Go to http://developer.baidu.com/map/index.php?title=webapi/guide/changeposition to see what the intergers mean.
 }
-

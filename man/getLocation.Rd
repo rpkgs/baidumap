@@ -5,8 +5,14 @@
 \title{Get location from coordinate
 Take in coordiantes and return the location}
 \usage{
-getLocation(location, output = "json", formatted = F, pois = 0,
-  limit = 600)
+getLocation(
+  location,
+  output = "json",
+  formatted = F,
+  pois = 0,
+  limit = 600,
+  map_ak = ""
+)
 }
 \arguments{
 \item{location}{longtitude and latitude}
@@ -52,4 +58,3 @@ location = getLocation(loc, formatted = T)
 }
 
 }
-

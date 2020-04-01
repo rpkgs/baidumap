@@ -35,10 +35,8 @@ Take in a original location and destination, return the direction
 }
 \examples{
 \dontrun{
-bjMap = getBaiduMap('北京', color='bw')
-df = getRoute('首都国际机场', '北京南苑机场', region = '北京')
+bjMap = getBaiduMap('鍖椾含', color='bw')
+df = getRoute('棣栭兘鍥介檯鏈哄満', '鍖椾含鍗楄嫅鏈哄満', region = '鍖椾含')
 ggmap(bjMap) + geom_path(data = df, aes(lon, lat), alpha = 0.5, col = 'red')
 }
-
 }
-

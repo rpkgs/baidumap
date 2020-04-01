@@ -4,8 +4,16 @@
 \alias{getBaiduMap}
 \title{Get map from Baidu API}
 \usage{
-getBaiduMap(location, width = 400, height = 400, zoom = 10, scale = 2,
-  color = "color", messaging = TRUE)
+getBaiduMap(
+  location,
+  width = 400,
+  height = 400,
+  zoom = 10,
+  scale = 2,
+  color = "color",
+  messaging = TRUE,
+  map_ak = ""
+)
 }
 \arguments{
 \item{location}{a vector a or matrix contains longtitude and latitude of the center of the map, or a character refers to the address}
@@ -47,4 +55,3 @@ ggmap(p)
 p <- getBaiduMap(messaging = F)
 }
 }
-

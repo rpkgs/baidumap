@@ -20,8 +20,7 @@ Take in query and city, return the informations
 \examples{
 
 \dontrun{
-url_character('北京')
+url_character('鍖椾含')
 # "\%e5\%8c\%97\%e4\%ba\%ac"
 }
 }
-

@@ -21,8 +21,6 @@
 #' df = getRoute('首都国际机场', '北京南苑机场', region = '北京')
 #' ggmap(bjMap) + geom_path(data = df, aes(lon, lat), alpha = 0.5, col = 'red')
 #' }
-#' 
-
 getRoute = function(...){
     rawData = getRouteXML(...)
     return(xml2df(rawData))
@@ -75,6 +73,3 @@ xml2df = function(rawData){
     coors = do.call(rbind, coor_list)
     return(coors)
 }
-
-
-

@@ -5,8 +5,14 @@
 \title{Get coordiante from address
 Take in address and return the coordinate}
 \usage{
-getCoordinate(address, city = NULL, output = "json", formatted = F,
-  limit = 600)
+getCoordinate(
+  address,
+  city = NULL,
+  output = "json",
+  formatted = F,
+  limit = 600,
+  map_ak = ""
+)
 }
 \arguments{
 \item{address}{address}
@@ -20,7 +26,10 @@ getCoordinate(address, city = NULL, output = "json", formatted = F,
 \item{limit}{integer value.If the length of address exceeded limit, function will run in parallel}
 }
 \value{
-A vector contains the  corresponding coordiante. If "formatted=TRUE", return the numeric coordinates, otherwise return json or xml type result, depents on the argument "output". If the length of address is larger than 1, the result is a matrix.
+A vector contains the  corresponding coordiante. If "formatted=TRUE", 
+return the numeric coordinates, otherwise return json or xml type result, 
+depents on the argument "output". If the length of address is larger than 1, 
+the result is a matrix.
 }
 \description{
 Get coordiante from address
@@ -29,16 +38,18 @@ Take in address and return the coordinate
 \examples{
 \dontrun{ 
 ## json output
-getCoordinate('北京大学')
+getCoordinate('鍖椾含澶у')
 
 ## xml output
-getCoordinate('北京大学', output='xml')
+getCoordinate('鍖椾含澶у', output='xml')
 
 ## formatted
-getCoordinate('北京大学', formatted = T)
+getCoordinate('鍖椾含澶у', formatted = T)
 
 ## vectorization, return a matrix
-getCoordinate(c('北京大学', '清华大学'), formatted = T)
+getCoordinate(c('鍖椾含澶у', '娓呭崕澶у'), formatted = T)
 }
 }
-
+\references{
+1. http://lbsyun.baidu.com/index.php?title=webapi/guide/webservice-geocoding
+}

@@ -5,8 +5,15 @@
 \title{Get place from query
 Take in query and city, return the informations}
 \usage{
-getPlace(place = NULL, city = "北京", page_size = 20, pages = Inf,
-  scope = 1, verbose = TRUE)
+getPlace(
+  place = NULL,
+  city = "北京",
+  page_size = 20,
+  pages = Inf,
+  scope = 1,
+  verbose = TRUE,
+  map_ak = ""
+)
 }
 \arguments{
 \item{place}{the place you want to search}
@@ -23,9 +30,8 @@ Take in query and city, return the informations
 \examples{
 \dontrun{
 ## colleges in beijing
-bj_college = getPlace('大学', '北京')
+bj_college = getPlace('澶у', '鍖椾含')
 ## Mcdonald's in shanghai
-sh_mcdonald = getPlace('麦当劳', '上海')
+sh_mcdonald = getPlace('楹﹀綋鍔<b3>', '涓婃捣')
 }
 }
-

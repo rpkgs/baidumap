@@ -3,7 +3,7 @@
     if (interactive()) {
         v = packageVersion("baidumap")
         message('baidumap ', v)
-        message(Notification)
+        # message(Notification)
     }
 }
 

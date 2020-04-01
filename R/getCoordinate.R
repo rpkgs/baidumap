@@ -6,7 +6,7 @@ getCoordinate.core = function(address, city=NULL,
     address = gsub(' |#', '', address)
     
     ### url
-    url_head = paste0('http://api.map.baidu.com/geocoder/v2/?address=', address)
+    url_head = paste0('http://api.map.baidu.com/geocoding/v3/?address=', address)
     if (!is.null(city)) url_head = paste0(url_head, "&city=", city)
     url = paste0(url_head, "&output=", output, "&ak=", map_ak)
     
@@ -44,7 +44,15 @@ getCoordinate.core = function(address, city=NULL,
 #' @param output should be "json" or "xml", the type of the result
 #' @param formatted logical value, return the coordinates or the original results
 #' @param limit integer value.If the length of address exceeded limit, function will run in parallel
-#' @return A vector contains the  corresponding coordiante. If "formatted=TRUE", return the numeric coordinates, otherwise return json or xml type result, depents on the argument "output". If the length of address is larger than 1, the result is a matrix.
+#' 
+#' @return A vector contains the  corresponding coordiante. If "formatted=TRUE", 
+#' return the numeric coordinates, otherwise return json or xml type result, 
+#' depents on the argument "output". If the length of address is larger than 1, 
+#' the result is a matrix.
+#' 
+#' @references
+#' 1. http://lbsyun.baidu.com/index.php?title=webapi/guide/webservice-geocoding
+#' 
 #' @export getCoordinate
 #' @examples
 #' \dontrun{ 
