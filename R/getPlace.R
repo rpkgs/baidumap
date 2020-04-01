@@ -40,7 +40,7 @@ getPlace = function(place=NULL, city='北京', page_size=20,
     city = url_character(city)
     
     ### url
-    url_head = 'http://api.map.baidu.com/place/v2/search?ak='
+    url_head = 'http://api.map.baidu.com/place/v3/search?ak='
     url = function(page) {
         sprintf('%s%s&output=json&query=%s&page_size=%s&&page_num=%s&scope=%s&region=%s',
                 url_head, map_ak, place, page_size, page, scope, city)
