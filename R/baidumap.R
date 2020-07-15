@@ -10,52 +10,47 @@
 #' @param color "color" or "bw", color or black-and-white
 #' @param messaging logical. whether to print the download messages.
 #' @return A ggmap object. a map image as a 2d-array of colors as hexadecimal strings representing pixel fill values.
-#' @export 
-#' @importFrom png readPNG
-#' @importFrom RgoogleMaps XY2LatLon
-#' @importFrom ggmap ggmap
 #' @examples
-#' 
 #' \dontrun{
 #' library(ggmap)  
 #' ## Beijing
-#' p <- getBaiduMap(c(116.39565, 39.92999))
+#' p <- baidumap(c(116.39565, 39.92999))
 #' ggmap(p)
 #' 
-#' p <- getBaiduMap('beijing') # the same
+#' p <- baidumap('beijing') # the same
 #' ggmap(p)
 #' 
 #' ## black-and-white
-#' p <- getBaiduMap(color='bw')
+#' p <- baidumap(color='bw')
 #' ggmap(p)
 #' 
 #' ## do not print messages
-#' p <- getBaiduMap(messaging = F)
+#' p <- baidumap(messaging = F)
 #' }
-getBaiduMap = function(location, width=400, height = 400, zoom=10, 
+#' 
+#' @export
+#' @importFrom png readPNG
+#' @importFrom RgoogleMaps XY2LatLon
+#' @importFrom ggmap ggmap
+baidumap = function(location, width=400, height = 400, zoom=10, 
                        scale=2, color = "color", messaging = TRUE,
                        map_ak = ''){
-    if (map_ak == '' && is.null(getOption('baidumap.key'))){
-        stop(Notification)
-    }else{
-        map_ak = ifelse(map_ak == '', getOption('baidumap.key'), map_ak)
-    }
+    map_ak %<>% check_mapkey()
+
     ## location
     if (is.character(location) && length(location) == 1){
-        location_cor = getCoordinate(location, formatted=T)
+        location_cor = get_coord(location)
     } else if (length(location == 2)){
         location_cor = location
     } else{
         stop('Wrong address!')
     }
-    lon = location_cor[1];
-    lat = location_cor[2];
+    lon = location_cor[[1]];
+    lat = location_cor[[2]];
     
-    ## set url
-    url_head = "http://api.map.baidu.com/staticimage?"
-    url = paste0(url_head, "width=", width, "&height=", height, "&center=",
-                 lon, ",", lat, "&zoom=", zoom)
-    if (scale == 2) url = paste0(url, "&scale=2")
+    str_scale = ifelse (scale == 2, "&scale=2", "")
+    url_root = "http://api.map.baidu.com/staticimage?"
+    url = glue("{url_root}width={width}&height={height}&{lon},{lat}&zoom={zoom}{str_scale}")
     
     ## download image
     if  (!'baiduMapFileDrawer' %in% list.dirs(full.names= F, recursive=F)) {
@@ -82,22 +77,17 @@ getBaiduMap = function(location, width=400, height = 400, zoom=10,
     ll <- XY2LatLon(
         list(lat = lat, lon = lon, zoom = zoom),
         -width/2 + 0.5,
-        -height/2 - 0.5
-    )
+        -height/2 - 0.5)
     ur <- XY2LatLon(
         list(lat = lat, lon = lon, zoom = zoom),
         width/2 + 0.5,
-        height/2 - 0.5
-    )
+        height/2 - 0.5)
     
-#     ll = as.numeric(rev(geoconv(rev(ll))))
-#     ur = as.numeric(rev(geoconv(rev(ur))))
+    # ll = as.numeric(rev(geoconv(rev(ll))))
+    # ur = as.numeric(rev(geoconv(rev(ur))))
     attr(map, "bb") <- data.frame(
         ll.lat = ll[1], ll.lon = ll[2],
-        ur.lat = ur[1], ur.lon = ur[2]
-    )
-    
-    # transpose
+        ur.lat = ur[1], ur.lon = ur[2])
     out <- t(map)
     out
 }

@@ -18,6 +18,6 @@ geoconv(geocode, from = 3, to = 5, map_ak = "")
 Convert geocode
 Take in geocode from the other source to baidu's geocode
 }
-\details{
-Go to http://developer.baidu.com/map/index.php?title=webapi/guide/changeposition to see what the intergers mean.
+\references{
+http://developer.baidu.com/map/index.php?title=webapi/guide/changeposition
 }

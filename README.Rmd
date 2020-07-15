@@ -1,0 +1,60 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+# baidumap
+<!-- badges: start -->
+<!-- badges: end -->
+
+## Installation
+
+You can install the development version from [GitHub](https://github.com/) with:
+
+``` r
+devtools::install_github("kongdd/baidumap")
+```
+## Example
+
+```{r example}
+library(baidumap)
+# 1. 给定经纬度，获取POI信息
+loc <- matrix(c(
+  117.93780, 24.55730, 
+  117.93291, 24.57745, 
+  117.23530, 24.64210, 
+  117.05890, 24.74860), byrow = T, ncol = 2)
+location <- get_location(loc) 
+print(location)
+
+# 2. 给定地名，获取经纬度
+get_coord(c("北京大学", "清华大学")) # matrix
+
+# 3. 查询POI
+get_place("地铁", "武汉")
+```
+
+### baidu map
+```{r}
+p <- baidumap(c(lon=116.354431, lat=39.942333))
+ggmap::ggmap(p)
+# 2. PUT POI into the map
+library(ggplot2)
+ruc_map = baidumap('中国人民大学', zoom=12)
+ruc_coordinate = get_coord('中国人民大学')
+ggmap::ggmap(ruc_map) +
+  geom_point(aes(x=lng, y=lat), data=ruc_coordinate, col='red', size=5)
+```
+
+## Tasklists
+
+- `get_route`: bug 
