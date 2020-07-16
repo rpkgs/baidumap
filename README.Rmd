@@ -16,14 +16,8 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-## Installation
-
-You can install the development version from [GitHub](https://github.com/) with:
-
-``` r
-devtools::install_github("kongdd/baidumap")
-```
-## Example
+最近救活了R语言一个废弃了3年的R包，`baidumap`。`baidumap`可以用来获取给定地名的
+经纬度位置，也可以根据经纬度信息获取POI数据。主要功能如下：
 
 ```{r example}
 library(baidumap)
@@ -37,13 +31,33 @@ location <- get_location(loc)
 print(location)
 
 # 2. 给定地名，获取经纬度
-get_coord(c("北京大学", "清华大学")) # matrix
+get_coord(c("中国地质大学（武汉）")) # matrix
 
 # 3. 查询POI
-get_place("地铁", "武汉")
+get_place("水库", "武汉")
+get_place("三峡大坝")
 ```
 
-### baidu map
+值得详细介绍的是`get_place`函数，`get_place`可以用来获取水库、大坝、水文站、气象站的站点位置，同时又可核对官方资料提供的气象站、水文站的站点位置是否准确。
+
+`get_place`具体有以下应用情景：
+
+- 大多数气象站点都经历过位置变迁，但是位置变迁记录可能有误。根据气象局的2481站点的气象资料显示，有17个站点变迁距离超过100km，有52个站点的变迁距离超过50km。站点变迁录取超过50km是非常可疑的，很可能是记录错误。气象站点的错误位置，影响气象数据的均一化矫正。此时根据`get_place`获取的站点位置作为benchmark，可以修改那些错误的站点信息。
+
+- 全国水雨情信息网（http://xxfb.mwr.cn/）提供了中国实时的水位和流量信息，但是未提供这些河道站和水库站的站点位置信息。根据`get_place`可以猜测这些站点的大致位置信息，根据累积流最大原则，将这些站点位置修正
+到距离最近的累积流最大的格点上，进而根据站点位置信息，获取流域形状。进行实时洪水灾情研究。
+
+- 进行选址研究
+获取医院、学校、超市、公路的经纬度信息，以半径R做buffer，进行研究选址问题。
+
+## 安装方法
+
+You can install the development version from [GitHub](https://github.com/) with:
+``` r
+devtools::install_github("kongdd/baidumap")
+```
+
+<!-- ### baidu map
 ```{r}
 p <- baidumap(c(lon=116.354431, lat=39.942333))
 ggmap::ggmap(p)
@@ -57,4 +71,4 @@ ggmap::ggmap(ruc_map) +
 
 ## Tasklists
 
-- `get_route`: bug 
+- `get_route`: bug  -->
