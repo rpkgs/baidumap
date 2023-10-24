@@ -34,6 +34,10 @@ print(location)
 get_coord(c("中国地质大学（武汉）")) # matrix
 
 # 3. 查询POI
+get_place("袁家河", "十堰市")
+get_place("店子河", "十堰市")
+get_place("西河", "十堰市")
+
 get_place("水库", "武汉")
 get_place("三峡大坝")
 ```

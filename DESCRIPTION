@@ -1,7 +1,6 @@
 Package: baidumap
 Title: A package for spatial visualization with Baidu
 Version: 0.2.2
-Encoding: UTF-8
 Author: yalei Du <yaleidu@163.com>
 Maintainer: yalei Du <yaleidu@163.com>
 Description: Just like ggmap, but get map from baidu instead of google or openstreet
@@ -10,11 +9,13 @@ Depends:
 Imports:
     ggmap, RgoogleMaps, png,
     XML,
+    data.table,
     httr, jsonlite, glue, 
     magrittr, 
     parallel
 License: GPL-3
 LazyData: true
-RoxygenNote: 7.1.0
+RoxygenNote: 7.2.3
 Suggests: 
     testthat
+Encoding: UTF-8
