@@ -20,12 +20,12 @@ Get location from coordinate
 Take in coordiantes and return the location
 }
 \examples{
-\dontrun{  
-## get one location 
-location_one = get_location(c(118.12845, 24.57742))
+\dontrun{
+## get one location
+location_one <- get_location(c(118.12845, 24.57742))
 
 ## vectorization
-loc = matrix(c(117.93780, 24.55730, 117.93291, 24.57745, 117.23530, 24.64210, 117.05890, 24.74860), byrow=T, ncol=2)
+loc <- matrix(c(117.93780, 24.55730, 117.93291, 24.57745, 117.23530, 24.64210, 117.05890, 24.74860), byrow = T, ncol = 2)
 get_location(loc)
 }
 }

@@ -19,9 +19,9 @@ get_coord(address, city = NULL, map_ak = "", limit = 600, .parallel = NULL)
 \item{formatted}{logical value, return the coordinates or the original results}
 }
 \value{
-A vector contains the  corresponding coordiante. If "formatted=TRUE", 
-return the numeric coordinates, otherwise return json or xml type result, 
-depents on the argument "output". If the length of address is larger than 1, 
+A vector contains the  corresponding coordiante. If "formatted=TRUE",
+return the numeric coordinates, otherwise return json or xml type result,
+depents on the argument "output". If the length of address is larger than 1,
 the result is a matrix.
 }
 \description{

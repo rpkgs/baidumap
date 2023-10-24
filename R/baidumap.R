@@ -1,7 +1,7 @@
 #' Get map from Baidu API
-#' 
+#'
 #' Take in coordiantes and return the location
-#' 
+#'
 #' @param location a vector a or matrix contains longtitude and latitude of the center of the map, or a character refers to the address
 #' @param width width of the map
 #' @param height height of the map
@@ -12,83 +12,87 @@
 #' @return A ggmap object. a map image as a 2d-array of colors as hexadecimal strings representing pixel fill values.
 #' @examples
 #' \dontrun{
-#' library(ggmap)  
+#' library(ggmap)
 #' ## Beijing
 #' p <- baidumap(c(116.39565, 39.92999))
 #' ggmap(p)
-#' 
-#' p <- baidumap('beijing') # the same
+#'
+#' p <- baidumap("beijing") # the same
 #' ggmap(p)
-#' 
+#'
 #' ## black-and-white
-#' p <- baidumap(color='bw')
+#' p <- baidumap(color = "bw")
 #' ggmap(p)
-#' 
+#'
 #' ## do not print messages
 #' p <- baidumap(messaging = F)
 #' }
-#' 
+#'
 #' @export
 #' @importFrom png readPNG
 #' @importFrom RgoogleMaps XY2LatLon
 #' @importFrom ggmap ggmap
-baidumap = function(location, width=400, height = 400, zoom=10, 
-                       scale=2, color = "color", messaging = TRUE,
-                       map_ak = ''){
-    map_ak %<>% check_mapkey()
+baidumap <- function(location, width = 400, height = 400, zoom = 10,
+                     scale = 2, color = "color", messaging = TRUE,
+                     map_ak = "") {
+  map_ak %<>% check_mapkey()
 
-    ## location
-    if (is.character(location) && length(location) == 1){
-        location_cor = get_coord(location)
-    } else if (length(location == 2)){
-        location_cor = location
-    } else{
-        stop('Wrong address!')
-    }
-    lon = location_cor[[1]];
-    lat = location_cor[[2]];
-    
-    str_scale = ifelse (scale == 2, "&scale=2", "")
-    url_root = "http://api.map.baidu.com/staticimage?"
-    url = glue("{url_root}width={width}&height={height}&{lon},{lat}&zoom={zoom}{str_scale}")
-    
-    ## download image
-    if  (!'baiduMapFileDrawer' %in% list.dirs(full.names= F, recursive=F)) {
-        dir.create('baiduMapFileDrawer')
-    }
-    destfile = paste0(lon, ";", lat, ".png")
-    download.file(url, destfile = paste0("baiduMapFileDrawer/", destfile), 
-                  quiet = !messaging, mode = "wb")
-    if (messaging) message(paste0("Map from URL : ", url))
-    
-    ## read image and transform to ggmap obejct 
-    map = readPNG(paste0("baiduMapFileDrawer/", destfile))
-    # format file
-    if(color == "color"){
-        map <- apply(map, 2, rgb)
-    } else if(color == "bw"){
-        mapd <- dim(map)
-        map <- gray(.30 * map[,,1] + .59 * map[,,2] + .11 * map[,,3])
-        dim(map) <- mapd[1:2]
-    }
-    class(map) <- c("ggmap","raster")
-    
-    # map spatial info
-    ll <- XY2LatLon(
-        list(lat = lat, lon = lon, zoom = zoom),
-        -width/2 + 0.5,
-        -height/2 - 0.5)
-    ur <- XY2LatLon(
-        list(lat = lat, lon = lon, zoom = zoom),
-        width/2 + 0.5,
-        height/2 - 0.5)
-    
-    # ll = as.numeric(rev(geoconv(rev(ll))))
-    # ur = as.numeric(rev(geoconv(rev(ur))))
-    attr(map, "bb") <- data.frame(
-        ll.lat = ll[1], ll.lon = ll[2],
-        ur.lat = ur[1], ur.lon = ur[2])
-    out <- t(map)
-    out
+  ## location
+  if (is.character(location) && length(location) == 1) {
+    location_cor <- get_coord(location)
+  } else if (length(location == 2)) {
+    location_cor <- location
+  } else {
+    stop("Wrong address!")
+  }
+  lon <- location_cor[[1]]
+  lat <- location_cor[[2]]
+
+  str_scale <- ifelse(scale == 2, "&scale=2", "")
+  url_root <- "http://api.map.baidu.com/staticimage?"
+  url <- glue("{url_root}width={width}&height={height}&{lon},{lat}&zoom={zoom}{str_scale}")
+
+  ## download image
+  if (!"baiduMapFileDrawer" %in% list.dirs(full.names = F, recursive = F)) {
+    dir.create("baiduMapFileDrawer")
+  }
+  destfile <- paste0(lon, ";", lat, ".png")
+  download.file(url,
+    destfile = paste0("baiduMapFileDrawer/", destfile),
+    quiet = !messaging, mode = "wb"
+  )
+  if (messaging) message(paste0("Map from URL : ", url))
+
+  ## read image and transform to ggmap obejct
+  map <- readPNG(paste0("baiduMapFileDrawer/", destfile))
+  # format file
+  if (color == "color") {
+    map <- apply(map, 2, rgb)
+  } else if (color == "bw") {
+    mapd <- dim(map)
+    map <- gray(.30 * map[, , 1] + .59 * map[, , 2] + .11 * map[, , 3])
+    dim(map) <- mapd[1:2]
+  }
+  class(map) <- c("ggmap", "raster")
+
+  # map spatial info
+  ll <- XY2LatLon(
+    list(lat = lat, lon = lon, zoom = zoom),
+    -width / 2 + 0.5,
+    -height / 2 - 0.5
+  )
+  ur <- XY2LatLon(
+    list(lat = lat, lon = lon, zoom = zoom),
+    width / 2 + 0.5,
+    height / 2 - 0.5
+  )
+
+  # ll = as.numeric(rev(geoconv(rev(ll))))
+  # ur = as.numeric(rev(geoconv(rev(ur))))
+  attr(map, "bb") <- data.frame(
+    ll.lat = ll[1], ll.lon = ll[2],
+    ur.lat = ur[1], ur.lon = ur[2]
+  )
+  out <- t(map)
+  out
 }
-

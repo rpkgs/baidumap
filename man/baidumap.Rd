@@ -38,16 +38,16 @@ Take in coordiantes and return the location
 }
 \examples{
 \dontrun{
-library(ggmap)  
+library(ggmap)
 ## Beijing
 p <- baidumap(c(116.39565, 39.92999))
 ggmap(p)
 
-p <- baidumap('beijing') # the same
+p <- baidumap("beijing") # the same
 ggmap(p)
 
 ## black-and-white
-p <- baidumap(color='bw')
+p <- baidumap(color = "bw")
 ggmap(p)
 
 ## do not print messages
